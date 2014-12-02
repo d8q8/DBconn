@@ -21,8 +21,8 @@ namespace DBconn
         /// <summary>
         /// 传参转化
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="value"></param>
+        /// <param name="name">名称</param>
+        /// <param name="value">值</param>
         /// <returns></returns>
         public IDataParameter MyParams(string name, object value) => new OleDbParameter(name, value);
 
