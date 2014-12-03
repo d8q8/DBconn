@@ -18,7 +18,7 @@ namespace DBConnTest
             {
                 const string sql = "select * from admin";
                 var dt = _db.MyDt(sql);
-                Console.Write("用户名:{0},密码:{1}", dt.Rows[0]["username"].ToString(), dt.Rows[0]["password"].ToString());
+                Console.Write("用户名:{0},密码:{1}", dt.Rows[0]["username"], dt.Rows[0]["password"]);
             }
 
             //暂停
