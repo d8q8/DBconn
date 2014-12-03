@@ -137,7 +137,10 @@ namespace DBconn
         /// <param name="pagesize">每页分配记录数</param>
         /// <param name="dataname">内存表</param>
         /// <returns>返回带分页自定义内存表</returns>
-        private DataSet GetDataSet(string sql, CommandType ctype, int startindex, int pagesize, string dataname) => IsSql().GetDataSet(sql, ctype, startindex, pagesize, dataname);
+        private DataSet GetDataSet(string sql, CommandType ctype, int startindex, int pagesize, string dataname)
+        {
+            return IsSql().GetDataSet(sql, ctype, startindex, pagesize, dataname);
+        }
 
         /// <summary>
         /// 获取DataSet数据列表
@@ -146,7 +149,10 @@ namespace DBconn
         /// <param name="ctype">类型</param>
         /// <param name="dataname">内存表</param>
         /// <returns>返回自定义内存表</returns>
-        private DataSet GetDataSet(string sql, CommandType ctype, string dataname) => IsSql().GetDataSet(sql, ctype, dataname);
+        private DataSet GetDataSet(string sql, CommandType ctype, string dataname)
+        {
+            return IsSql().GetDataSet(sql, ctype, dataname);
+        }
 
         /// <summary>
         /// 执行sql语句
@@ -154,7 +160,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="ctype">类型</param>
         /// <returns>返回执行的行数</returns>
-        private int GetExecuteNonQuery(string sql, CommandType ctype) => IsSql().GetExecuteNonQuery(sql, ctype);
+        private int GetExecuteNonQuery(string sql, CommandType ctype)
+        {
+            return IsSql().GetExecuteNonQuery(sql, ctype);
+        }
 
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
@@ -162,7 +171,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="ctype">类型</param>
         /// <returns>返回object对象</returns>
-        private object GetExecuteScalar(string sql, CommandType ctype) => IsSql().GetExecuteScalar(sql, ctype);
+        private object GetExecuteScalar(string sql, CommandType ctype)
+        {
+            return IsSql().GetExecuteScalar(sql, ctype);
+        }
 
         /// <summary>
         /// 判断是否存在值
@@ -170,7 +182,10 @@ namespace DBconn
         /// <param name="sql">计算查询结果语句</param>
         /// <param name="ctype">请求类型</param>
         /// <returns>查询结果（true/false）</returns>
-        public bool GetExists(string sql, CommandType ctype) => GetExists(sql, ctype, null);
+        public bool GetExists(string sql, CommandType ctype)
+        {
+            return GetExists(sql, ctype, null);
+        }
 
         /// <summary>
         /// 获取数据记录集列表
@@ -178,7 +193,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="ctype">类型</param>
         /// <returns>返回记录集列表</returns>
-        private IDataReader GetDataReader(string sql, CommandType ctype) => IsSql().GetDataReader(sql, ctype);
+        private IDataReader GetDataReader(string sql, CommandType ctype)
+        {
+            return IsSql().GetDataReader(sql, ctype);
+        }
 
         #endregion
 
@@ -194,7 +212,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回带分页自定义内存表</returns>
-        private DataSet GetDataSet(string sql, CommandType ctype, int startindex, int pagesize, string dataname, params IDataParameter[] param) => IsSql().GetDataSet(sql, ctype, startindex, pagesize, dataname, param);
+        private DataSet GetDataSet(string sql, CommandType ctype, int startindex, int pagesize, string dataname, params IDataParameter[] param)
+        {
+            return IsSql().GetDataSet(sql, ctype, startindex, pagesize, dataname, param);
+        }
 
         /// <summary>
         /// 获取DataSet数据列表
@@ -204,7 +225,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回自定义内存表</returns>
-        private DataSet GetDataSet(string sql, CommandType ctype, string dataname, params IDataParameter[] param) => IsSql().GetDataSet(sql, ctype, dataname, param);
+        private DataSet GetDataSet(string sql, CommandType ctype, string dataname, params IDataParameter[] param)
+        {
+            return IsSql().GetDataSet(sql, ctype, dataname, param);
+        }
 
         /// <summary>
         /// 执行sql语句
@@ -213,7 +237,10 @@ namespace DBconn
         /// <param name="ctype">类型</param>
         /// <param name="param">参数</param>
         /// <returns>返回执行的行数</returns>
-        private int GetExecuteNonQuery(string sql, CommandType ctype, params IDataParameter[] param) => IsSql().GetExecuteNonQuery(sql, ctype, param);
+        private int GetExecuteNonQuery(string sql, CommandType ctype, params IDataParameter[] param)
+        {
+            return IsSql().GetExecuteNonQuery(sql, ctype, param);
+        }
 
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
@@ -222,7 +249,10 @@ namespace DBconn
         /// <param name="ctype">类型</param>
         /// <param name="param">参数</param>
         /// <returns>返回object对象</returns>
-        private object GetExecuteScalar(string sql, CommandType ctype, params IDataParameter[] param) => IsSql().GetExecuteScalar(sql, ctype, param);
+        private object GetExecuteScalar(string sql, CommandType ctype, params IDataParameter[] param)
+        {
+            return IsSql().GetExecuteScalar(sql, ctype, param);
+        }
 
         /// <summary>
         /// 判断是否存在值
@@ -234,7 +264,7 @@ namespace DBconn
         public bool GetExists(string sql, CommandType ctype, params IDataParameter[] param)
         {
             var obj = GetExecuteScalar(sql, ctype, param);
-            var i = ((Equals(obj, null)) || (Equals(obj, DBNull.Value))) ? 0 : int.Parse(obj.ToString());
+            var i = (Equals(obj, null) || Equals(obj, DBNull.Value)) ? 0 : int.Parse(obj.ToString());
             return (i != 0);
         }
 
@@ -245,7 +275,10 @@ namespace DBconn
         /// <param name="ctype">类型</param>
         /// <param name="param">参数</param>
         /// <returns>返回记录集列表</returns>
-        private IDataReader GetDataReader(string sql, CommandType ctype, params IDataParameter[] param) => IsSql().GetDataReader(sql, ctype, param);
+        private IDataReader GetDataReader(string sql, CommandType ctype, params IDataParameter[] param)
+        {
+            return IsSql().GetDataReader(sql, ctype, param);
+        }
 
         #endregion
 
@@ -260,7 +293,10 @@ namespace DBconn
         /// <param name="pagesize">每页分配记录数</param>
         /// <param name="dataname">内存表</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataSet MyDs(string sql, CommandType ctype, int startindex, int pagesize, string dataname) => GetDataSet(sql, ctype, startindex, pagesize, dataname);
+        public DataSet MyDs(string sql, CommandType ctype, int startindex, int pagesize, string dataname)
+        {
+            return GetDataSet(sql, ctype, startindex, pagesize, dataname);
+        }
 
         /// <summary>
         /// 获取DataSet数据列表
@@ -269,7 +305,10 @@ namespace DBconn
         /// <param name="ctype">类型</param>
         /// <param name="dataname">内存表</param>
         /// <returns>返回自定义内存表</returns>
-        public DataSet MyDs(string sql, CommandType ctype, string dataname) => GetDataSet(sql, ctype, dataname);
+        public DataSet MyDs(string sql, CommandType ctype, string dataname)
+        {
+            return GetDataSet(sql, ctype, dataname);
+        }
 
         /// <summary>
         /// 执行sql语句
@@ -277,7 +316,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="ctype">类型</param>
         /// <returns>返回执行的行数</returns>
-        public int MyExec(string sql, CommandType ctype) => GetExecuteNonQuery(sql, ctype);
+        public int MyExec(string sql, CommandType ctype)
+        {
+            return GetExecuteNonQuery(sql, ctype);
+        }
 
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
@@ -285,7 +327,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="ctype">类型</param>
         /// <returns>返回object对象</returns>
-        public object MyTotal(string sql, CommandType ctype) => GetExecuteScalar(sql, ctype);
+        public object MyTotal(string sql, CommandType ctype)
+        {
+            return GetExecuteScalar(sql, ctype);
+        }
 
         /// <summary>
         /// 判断数据是否存在
@@ -293,7 +338,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="ctype">类型</param>
         /// <returns>返回bool表达式</returns>
-        public bool MyExist(string sql, CommandType ctype) => GetExists(sql, ctype);
+        public bool MyExist(string sql, CommandType ctype)
+        {
+            return GetExists(sql, ctype);
+        }
 
         /// <summary>
         /// 获取数据记录集列表
@@ -301,7 +349,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="ctype">类型</param>
         /// <returns>返回记录集列表</returns>
-        public IDataReader MyRead(string sql, CommandType ctype) => GetDataReader(sql, ctype);
+        public IDataReader MyRead(string sql, CommandType ctype)
+        {
+            return GetDataReader(sql, ctype);
+        }
 
         #endregion
 
@@ -317,7 +368,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataSet MyDs(string sql, CommandType ctype, int startindex, int pagesize, string dataname, params IDataParameter[] param) => GetDataSet(sql, ctype, startindex, pagesize, dataname, param);
+        public DataSet MyDs(string sql, CommandType ctype, int startindex, int pagesize, string dataname, params IDataParameter[] param)
+        {
+            return GetDataSet(sql, ctype, startindex, pagesize, dataname, param);
+        }
 
         /// <summary>
         /// 获取DataTable数据列表（带分页）
@@ -329,7 +383,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataTable MyDt(string sql, CommandType ctype, int startindex, int pagesize, string dataname, params IDataParameter[] param) => MyDs(sql, ctype, startindex, pagesize, dataname, param).Tables[0];
+        public DataTable MyDt(string sql, CommandType ctype, int startindex, int pagesize, string dataname, params IDataParameter[] param)
+        {
+            return MyDs(sql, ctype, startindex, pagesize, dataname, param).Tables[0];
+        }
 
         /// <summary>
         /// 获取DataView数据列表（带分页）
@@ -341,7 +398,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataView MyDv(string sql, CommandType ctype, int startindex, int pagesize, string dataname, params IDataParameter[] param) => MyDt(sql, ctype, startindex, pagesize, dataname, param).DefaultView;
+        public DataView MyDv(string sql, CommandType ctype, int startindex, int pagesize, string dataname, params IDataParameter[] param)
+        {
+            return MyDt(sql, ctype, startindex, pagesize, dataname, param).DefaultView;
+        }
 
         /// <summary>
         /// 获取DataSet数据列表
@@ -351,7 +411,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回自定义内存表</returns>
-        public DataSet MyDs(string sql, CommandType ctype, string dataname, params IDataParameter[] param) => GetDataSet(sql, ctype, dataname, param);
+        public DataSet MyDs(string sql, CommandType ctype, string dataname, params IDataParameter[] param)
+        {
+            return GetDataSet(sql, ctype, dataname, param);
+        }
 
         /// <summary>
         /// 获取DataTable数据列表
@@ -361,7 +424,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回自定义内存表</returns>
-        public DataTable MyDt(string sql, CommandType ctype, string dataname, params IDataParameter[] param) => MyDs(sql, ctype, dataname, param).Tables[0];
+        public DataTable MyDt(string sql, CommandType ctype, string dataname, params IDataParameter[] param)
+        {
+            return MyDs(sql, ctype, dataname, param).Tables[0];
+        }
 
         /// <summary>
         /// 获取DataView数据列表
@@ -371,7 +437,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回自定义内存表</returns>
-        public DataView MyDv(string sql, CommandType ctype, string dataname, params IDataParameter[] param) => MyDt(sql, ctype, dataname, param).DefaultView;
+        public DataView MyDv(string sql, CommandType ctype, string dataname, params IDataParameter[] param)
+        {
+            return MyDt(sql, ctype, dataname, param).DefaultView;
+        }
 
         /// <summary>
         /// 执行sql语句
@@ -380,7 +449,10 @@ namespace DBconn
         /// <param name="ctype">类型</param>
         /// <param name="param">参数</param>
         /// <returns>返回执行的行数</returns>
-        public int MyExec(string sql, CommandType ctype, params IDataParameter[] param) => GetExecuteNonQuery(sql, ctype, param);
+        public int MyExec(string sql, CommandType ctype, params IDataParameter[] param)
+        {
+            return GetExecuteNonQuery(sql, ctype, param);
+        }
 
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
@@ -389,7 +461,10 @@ namespace DBconn
         /// <param name="ctype">类型</param>
         /// <param name="param">参数</param>
         /// <returns>返回object对象</returns>
-        public object MyTotal(string sql, CommandType ctype, params IDataParameter[] param) => GetExecuteScalar(sql, ctype, param);
+        public object MyTotal(string sql, CommandType ctype, params IDataParameter[] param)
+        {
+            return GetExecuteScalar(sql, ctype, param);
+        }
 
         /// <summary>
         /// 判断数据是否存在
@@ -398,7 +473,10 @@ namespace DBconn
         /// <param name="ctype">类型</param>
         /// <param name="param">参数</param>
         /// <returns>返回bool表达式</returns>
-        public bool MyExist(string sql, CommandType ctype, params IDataParameter[] param) => GetExists(sql, ctype, param);
+        public bool MyExist(string sql, CommandType ctype, params IDataParameter[] param)
+        {
+            return GetExists(sql, ctype, param);
+        }
 
         /// <summary>
         /// 获取数据记录集列表
@@ -407,7 +485,10 @@ namespace DBconn
         /// <param name="ctype">类型</param>
         /// <param name="param">参数</param>
         /// <returns>返回记录集列表</returns>
-        public IDataReader MyRead(string sql, CommandType ctype, params IDataParameter[] param) => GetDataReader(sql, ctype, param);
+        public IDataReader MyRead(string sql, CommandType ctype, params IDataParameter[] param)
+        {
+            return GetDataReader(sql, ctype, param);
+        }
 
         #endregion
 
@@ -421,7 +502,10 @@ namespace DBconn
         /// <param name="pagesize">每页分配记录数</param>
         /// <param name="dataname">内存表</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataSet MyDs(string sql, int startindex, int pagesize, string dataname="ds") => MyDs(sql, CommandType.Text, startindex, pagesize, dataname);
+        public DataSet MyDs(string sql, int startindex, int pagesize, string dataname="ds")
+        {
+            return MyDs(sql, CommandType.Text, startindex, pagesize, dataname);
+        }
 
         /// <summary>
         /// 获取DataSet数据列表
@@ -429,35 +513,50 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="dataname">内存表</param>
         /// <returns>返回自定义内存表</returns>
-        public DataSet MyDs(string sql, string dataname="ds") => MyDs(sql, CommandType.Text, dataname);
+        public DataSet MyDs(string sql, string dataname="ds")
+        {
+            return MyDs(sql, CommandType.Text, dataname);
+        }
 
         /// <summary>
         /// 执行sql语句
         /// </summary>
         /// <param name="sql">sql语句</param>
         /// <returns>返回执行的行数</returns>
-        public int MyExec(string sql) => MyExec(sql, CommandType.Text);
+        public int MyExec(string sql)
+        {
+            return MyExec(sql, CommandType.Text);
+        }
 
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
         /// </summary>
         /// <param name="sql">sql语句</param>
         /// <returns>返回object对象</returns>
-        public object MyTotal(string sql) => MyTotal(sql, CommandType.Text);
+        public object MyTotal(string sql)
+        {
+            return MyTotal(sql, CommandType.Text);
+        }
 
         /// <summary>
         /// 判断数据是否存在
         /// </summary>
         /// <param name="sql">sql语句</param>
         /// <returns>返回bool表达式</returns>
-        public bool MyExist(string sql) => MyExist(sql, CommandType.Text);
+        public bool MyExist(string sql)
+        {
+            return MyExist(sql, CommandType.Text);
+        }
 
         /// <summary>
         /// 获取数据记录集列表
         /// </summary>
         /// <param name="sql">sql语句</param>
         /// <returns>返回记录集列表</returns>
-        public IDataReader MyRead(string sql) => MyRead(sql, CommandType.Text);
+        public IDataReader MyRead(string sql)
+        {
+            return MyRead(sql, CommandType.Text);
+        }
 
         #endregion
 
@@ -472,7 +571,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataSet MyDs(string sql, int startindex, int pagesize, string dataname, params IDataParameter[] param) => MyDs(sql, CommandType.Text, startindex, pagesize, dataname, param);
+        public DataSet MyDs(string sql, int startindex, int pagesize, string dataname, params IDataParameter[] param)
+        {
+            return MyDs(sql, CommandType.Text, startindex, pagesize, dataname, param);
+        }
 
         /// <summary>
         /// 获取DataSet数据列表（带分页）
@@ -482,7 +584,10 @@ namespace DBconn
         /// <param name="pagesize">每页分配记录数</param>
         /// <param name="param">参数</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataSet MyDs(string sql, int startindex, int pagesize, params IDataParameter[] param) => MyDs(sql, CommandType.Text, startindex, pagesize, "ds", param);
+        public DataSet MyDs(string sql, int startindex, int pagesize, params IDataParameter[] param)
+        {
+            return MyDs(sql, CommandType.Text, startindex, pagesize, "ds", param);
+        }
 
         /// <summary>
         /// 获取DataSet数据列表，带数据名称
@@ -491,7 +596,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回自定义内存表</returns>
-        public DataSet MyDs(string sql, string dataname, params IDataParameter[] param) => MyDs(sql, CommandType.Text, dataname, param);
+        public DataSet MyDs(string sql, string dataname, params IDataParameter[] param)
+        {
+            return MyDs(sql, CommandType.Text, dataname, param);
+        }
 
         /// <summary>
         /// 获取DataSet数据列表
@@ -499,7 +607,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="param">参数</param>
         /// <returns>返回自定义内存表</returns>
-        public DataSet MyDs(string sql, params IDataParameter[] param) => MyDs(sql, CommandType.Text, "ds", param);
+        public DataSet MyDs(string sql, params IDataParameter[] param)
+        {
+            return MyDs(sql, CommandType.Text, "ds", param);
+        }
 
         /// <summary>
         /// 执行sql语句
@@ -507,7 +618,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="param">参数</param>
         /// <returns>返回执行的行数</returns>
-        public int MyExec(string sql, params IDataParameter[] param) => MyExec(sql, CommandType.Text, param);
+        public int MyExec(string sql, params IDataParameter[] param)
+        {
+            return MyExec(sql, CommandType.Text, param);
+        }
 
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
@@ -515,7 +629,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="param">参数</param>
         /// <returns>返回object对象</returns>
-        public object MyTotal(string sql, params IDataParameter[] param) => MyTotal(sql, CommandType.Text, param);
+        public object MyTotal(string sql, params IDataParameter[] param)
+        {
+            return MyTotal(sql, CommandType.Text, param);
+        }
 
         /// <summary>
         /// 判断数据是否存在
@@ -523,7 +640,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="param"></param>
         /// <returns>返回bool表达式</returns>
-        public bool MyExist(string sql, params IDataParameter[] param) => MyExist(sql, CommandType.Text, param);
+        public bool MyExist(string sql, params IDataParameter[] param)
+        {
+            return MyExist(sql, CommandType.Text, param);
+        }
 
         /// <summary>
         /// 获取数据记录集列表
@@ -531,7 +651,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="param">参数</param>
         /// <returns>返回记录集列表</returns>
-        public IDataReader MyRead(string sql, params IDataParameter[] param) => MyRead(sql, CommandType.Text, param);
+        public IDataReader MyRead(string sql, params IDataParameter[] param)
+        {
+            return MyRead(sql, CommandType.Text, param);
+        }
 
         #endregion
 
@@ -541,14 +664,20 @@ namespace DBconn
         /// </summary>
         /// <param name="cacheKey"></param>
         /// <returns></returns>
-        public IDataParameter[] GetCache(string cacheKey) => IsSql().GetCachedParameters(cacheKey);
+        public IDataParameter[] GetCache(string cacheKey)
+        {
+            return IsSql().GetCachedParameters(cacheKey);
+        }
 
         /// <summary>
         /// 设置缓存参数
         /// </summary>
         /// <param name="cacheKey"></param>
         /// <param name="commandParameters"></param>
-        public void SetCache(string cacheKey, params IDataParameter[] commandParameters) => IsSql().CacheParameters(cacheKey, commandParameters);
+        public void SetCache(string cacheKey, params IDataParameter[] commandParameters)
+        {
+            IsSql().CacheParameters(cacheKey, commandParameters);
+        }
 
         /// <summary>
         /// 创建传参转化
@@ -556,12 +685,18 @@ namespace DBconn
         /// <param name="name"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public IDataParameter MyParam(string name, string value) => IsSql().MyParams(name, value);
+        public IDataParameter MyParam(string name, string value)
+        {
+            return IsSql().MyParams(name, value);
+        }
 
         #endregion
 
         #region 引用参数(键值关系)
-        public IDataParameter AddParam(string name, object value) => IsSql().MyParams(name, value);
+        public IDataParameter AddParam(string name, object value)
+        {
+            return IsSql().MyParams(name, value);
+        }
 
         #endregion
 
@@ -575,7 +710,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataTable MyDt(string sql, int startindex, int pagesize, string dataname, params IDataParameter[] param) => MyDs(sql, CommandType.Text, startindex, pagesize, dataname, param).Tables[0];
+        public DataTable MyDt(string sql, int startindex, int pagesize, string dataname, params IDataParameter[] param)
+        {
+            return MyDs(sql, CommandType.Text, startindex, pagesize, dataname, param).Tables[0];
+        }
 
         /// <summary>
         /// 获取DataTable数据列表（带分页）
@@ -585,7 +723,10 @@ namespace DBconn
         /// <param name="pagesize">每页分配记录数</param>
         /// <param name="param">参数</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataTable MyDt(string sql, int startindex, int pagesize, params IDataParameter[] param) => MyDt(sql, startindex, pagesize, "ds", param);
+        public DataTable MyDt(string sql, int startindex, int pagesize, params IDataParameter[] param)
+        {
+            return MyDt(sql, startindex, pagesize, "ds", param);
+        }
 
         /// <summary>
         /// 获取DataTable数据列表，带数据名称
@@ -594,7 +735,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回自定义内存表</returns>
-        public DataTable MyDt(string sql, string dataname, params IDataParameter[] param) => MyDs(sql, CommandType.Text, dataname, param).Tables[0];
+        public DataTable MyDt(string sql, string dataname, params IDataParameter[] param)
+        {
+            return MyDs(sql, CommandType.Text, dataname, param).Tables[0];
+        }
 
         /// <summary>
         /// 获取DataTable数据列表
@@ -602,7 +746,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="param">参数</param>
         /// <returns>返回自定义内存表</returns>
-        public DataTable MyDt(string sql, params IDataParameter[] param) => MyDt(sql, "ds", param);
+        public DataTable MyDt(string sql, params IDataParameter[] param)
+        {
+            return MyDt(sql, "ds", param);
+        }
 
         /// <summary>
         /// 获取DataView数据列表（带分页），带数据名称
@@ -613,7 +760,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataView MyDv(string sql, int startindex, int pagesize, string dataname, params IDataParameter[] param) => MyDt(sql, startindex, pagesize, dataname, param).DefaultView;
+        public DataView MyDv(string sql, int startindex, int pagesize, string dataname, params IDataParameter[] param)
+        {
+            return MyDt(sql, startindex, pagesize, dataname, param).DefaultView;
+        }
 
         /// <summary>
         /// 获取DataView数据列表（带分页）
@@ -623,7 +773,10 @@ namespace DBconn
         /// <param name="pagesize">每页分配记录数</param>
         /// <param name="param">参数</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataView MyDv(string sql, int startindex, int pagesize, params IDataParameter[] param) => MyDv(sql, startindex, pagesize, "ds", param);
+        public DataView MyDv(string sql, int startindex, int pagesize, params IDataParameter[] param)
+        {
+            return MyDv(sql, startindex, pagesize, "ds", param);
+        }
 
         /// <summary>
         /// 获取DataView数据列表，带数据名称
@@ -632,7 +785,10 @@ namespace DBconn
         /// <param name="dataname">内存表</param>
         /// <param name="param">参数</param>
         /// <returns>返回自定义内存表</returns>
-        public DataView MyDv(string sql, string dataname, params IDataParameter[] param) => MyDt(sql, dataname, param).DefaultView;
+        public DataView MyDv(string sql, string dataname, params IDataParameter[] param)
+        {
+            return MyDt(sql, dataname, param).DefaultView;
+        }
 
         /// <summary>
         /// 获取DataView数据列表
@@ -640,7 +796,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="param">参数</param>
         /// <returns>返回自定义内存表</returns>
-        public DataView MyDv(string sql, params IDataParameter[] param) => MyDv(sql, "ds", param);
+        public DataView MyDv(string sql, params IDataParameter[] param)
+        {
+            return MyDv(sql, "ds", param);
+        }
 
         #endregion
 
@@ -653,7 +812,10 @@ namespace DBconn
         /// <param name="pagesize">每页分配记录数</param>
         /// <param name="dataname">内存表</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataTable MyDt(string sql, int startindex, int pagesize, string dataname="ds") => MyDt(sql, startindex, pagesize, dataname, null);
+        public DataTable MyDt(string sql, int startindex, int pagesize, string dataname="ds")
+        {
+            return MyDt(sql, startindex, pagesize, dataname, null);
+        }
 
         /// <summary>
         /// 获取DataTable数据列表，带数据名称
@@ -661,7 +823,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="dataname">内存表</param>
         /// <returns>返回自定义内存表</returns>
-        public DataTable MyDt(string sql, string dataname="ds") => MyDt(sql, dataname, null);
+        public DataTable MyDt(string sql, string dataname="ds")
+        {
+            return MyDt(sql, dataname, null);
+        }
 
         /// <summary>
         /// 获取DataView数据列表（带分页），带数据名称
@@ -671,7 +836,10 @@ namespace DBconn
         /// <param name="pagesize">每页分配记录数</param>
         /// <param name="dataname">内存表</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataView MyDv(string sql, int startindex, int pagesize, string dataname="ds") => MyDv(sql, startindex, pagesize, dataname, null);
+        public DataView MyDv(string sql, int startindex, int pagesize, string dataname="ds")
+        {
+            return MyDv(sql, startindex, pagesize, dataname, null);
+        }
 
         /// <summary>
         /// 获取DataView数据列表，带数据名称
@@ -679,7 +847,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="dataname">内存表</param>
         /// <returns>返回自定义内存表</returns>
-        public DataView MyDv(string sql, string dataname="ds") => MyDv(sql, dataname, null);
+        public DataView MyDv(string sql, string dataname="ds")
+        {
+            return MyDv(sql, dataname, null);
+        }
 
         #endregion
 

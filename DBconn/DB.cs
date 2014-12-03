@@ -1071,15 +1071,50 @@ namespace DBconn
             return tempstr;
         }
 
-        public static string Null => "";
-        public static string IntNull => "0";
-        public static string BoolNull => "false";
-        public static string DateTimeShortNull => "0001-1-1 0:00:00";
-        public static string DateTimeWin7ShortNull => "0001/1/1 0:00:00";
-        public static string DateTimeWin7LongNull => "0001/01/01 00:00:00";
-        public static string DateTimeLongNull => "0001-01-01 00:00:00";
-        public static string PrimaryKey => "PrimaryKey";
-        public static string TableName => "TableName";
+        public static string Null
+        {
+            get { return ""; }
+        }
+
+        public static string IntNull
+        {
+            get { return "0"; }
+        }
+
+        public static string BoolNull
+        {
+            get { return "false"; }
+        }
+
+        public static string DateTimeShortNull
+        {
+            get { return "0001-1-1 0:00:00"; }
+        }
+
+        public static string DateTimeWin7ShortNull
+        {
+            get { return "0001/1/1 0:00:00"; }
+        }
+
+        public static string DateTimeWin7LongNull
+        {
+            get { return "0001/01/01 00:00:00"; }
+        }
+
+        public static string DateTimeLongNull
+        {
+            get { return "0001-01-01 00:00:00"; }
+        }
+
+        public static string PrimaryKey
+        {
+            get { return "PrimaryKey"; }
+        }
+
+        public static string TableName
+        {
+            get { return "TableName"; }
+        }
     }
     #endregion
 

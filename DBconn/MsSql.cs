@@ -25,7 +25,10 @@ namespace DBconn
         /// <param name="name"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public IDataParameter MyParams(string name, object value) => new SqlParameter(name, value);
+        public IDataParameter MyParams(string name, object value)
+        {
+            return new SqlParameter(name, value);
+        }
 
         #region 基本数据库操作
         /// <summary>
@@ -104,7 +107,10 @@ namespace DBconn
         /// <param name="pagesize">每页分配记录数</param>
         /// <param name="dataname">内存表</param>
         /// <returns>返回带分页自定义内存表</returns>
-        public DataSet GetDataSet(string sql, CommandType ctype, int startindex, int pagesize, string dataname) => GetDataSet(sql, ctype, startindex, pagesize, dataname, null);
+        public DataSet GetDataSet(string sql, CommandType ctype, int startindex, int pagesize, string dataname)
+        {
+            return GetDataSet(sql, ctype, startindex, pagesize, dataname, null);
+        }
 
         /// <summary>
         /// 获取DataSet数据列表
@@ -113,14 +119,20 @@ namespace DBconn
         /// <param name="ctype">类型</param>
         /// <param name="dataname">内存表</param>
         /// <returns>返回自定义内存表</returns>
-        public DataSet GetDataSet(string sql, CommandType ctype, string dataname) => GetDataSet(sql, ctype, dataname, null);
+        public DataSet GetDataSet(string sql, CommandType ctype, string dataname)
+        {
+            return GetDataSet(sql, ctype, dataname, null);
+        }
 
         /// <summary>
         /// 执行sql语句
         /// </summary>
         /// <param name="sql">sql语句</param>
         /// <param name="ctype">类型</param>
-        public int GetExecuteNonQuery(string sql, CommandType ctype) => GetExecuteNonQuery(sql, ctype, null);
+        public int GetExecuteNonQuery(string sql, CommandType ctype)
+        {
+            return GetExecuteNonQuery(sql, ctype, null);
+        }
 
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
@@ -128,7 +140,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="ctype">类型</param>
         /// <returns>返回object对象</returns>
-        public object GetExecuteScalar(string sql, CommandType ctype) => GetExecuteScalar(sql, ctype, null);
+        public object GetExecuteScalar(string sql, CommandType ctype)
+        {
+            return GetExecuteScalar(sql, ctype, null);
+        }
 
         /// <summary>
         /// 获取数据记录集列表
@@ -136,7 +151,10 @@ namespace DBconn
         /// <param name="sql">sql语句</param>
         /// <param name="ctype">类型</param>
         /// <returns>返回记录集列表</returns>
-        public IDataReader GetDataReader(string sql, CommandType ctype) => GetDataReader(sql, ctype, null);
+        public IDataReader GetDataReader(string sql, CommandType ctype)
+        {
+            return GetDataReader(sql, ctype, null);
+        }
 
         #endregion
 
