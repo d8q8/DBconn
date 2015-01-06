@@ -8,16 +8,16 @@ DBconn
 初步更新...
 
 1>使用方法
-<pre>
+
 	枚举数据库类型
-	```java
+	```c#
 	public enum MyType
     {
         Access2003, Access2007, Access2013, Mssql, Mysql, Oracle, Sqlite
     }
     使用很简单,如
     MyType.Access2003
-</pre>
+
 2>数据库配置
 <pre>
 	//调用代码配置在web.config里，数据库路径为：Access，Sqlite为相对路径，其他为全路径
