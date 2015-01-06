@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Data;
+using System.Data.OracleClient;
 using System.Linq;
-using Oracle.DataAccess.Client;
 
 namespace DBconn
 {
@@ -11,7 +11,9 @@ namespace DBconn
     /// </summary>
     public sealed class Oracle : ISDb, IDisposable
     {
+#pragma warning disable 618
         private OracleConnection _connSql;
+#pragma warning restore 618
         private readonly string _dataSql;
         private bool _disposed;
         public Oracle(string connstr)
@@ -36,7 +38,9 @@ namespace DBconn
         public void Open()
         {
             var connstr = _dataSql;
+#pragma warning disable 618
             _connSql = new OracleConnection(connstr);
+#pragma warning restore 618
             if (_connSql.State == ConnectionState.Closed)
             {
                 _connSql.Open();
@@ -172,9 +176,13 @@ namespace DBconn
         public DataSet GetDataSet(string sql, CommandType ctype, int startindex, int pagesize, string dataname, params IDataParameter[] param)
         {
             Open();
+#pragma warning disable 618
             var cmd = new OracleCommand();
+#pragma warning restore 618
             PrepareCommand(cmd, _connSql, null, ctype, sql, param);
+#pragma warning disable 618
             using (var dap = new OracleDataAdapter(cmd))
+#pragma warning restore 618
             {
                 var ds = new DataSet();
                 try
@@ -207,9 +215,13 @@ namespace DBconn
         public DataSet GetDataSet(string sql, CommandType ctype, string dataname, params IDataParameter[] param)
         {
             Open();
+#pragma warning disable 618
             var cmd = new OracleCommand();
+#pragma warning restore 618
             PrepareCommand(cmd, _connSql, null, ctype, sql, param);
+#pragma warning disable 618
             using (var dap = new OracleDataAdapter(cmd))
+#pragma warning restore 618
             {
                 var ds = new DataSet();
                 try
@@ -241,7 +253,9 @@ namespace DBconn
         {
             Open();
             int i;
+#pragma warning disable 618
             var cmd = new OracleCommand();
+#pragma warning restore 618
             try
             {
                 PrepareCommand(cmd, _connSql, null, ctype, sql, param);
@@ -266,7 +280,9 @@ namespace DBconn
         public object GetExecuteScalar(string sql, CommandType ctype, params IDataParameter[] param)
         {
             Open();
+#pragma warning disable 618
             var cmd = new OracleCommand();
+#pragma warning restore 618
             try
             {
                 PrepareCommand(cmd, _connSql, null, ctype, sql, param);
@@ -291,7 +307,9 @@ namespace DBconn
         public IDataReader GetDataReader(string sql, CommandType ctype, params IDataParameter[] param)
         {
             Open();
+#pragma warning disable 618
             var cmd = new OracleCommand();
+#pragma warning restore 618
             PrepareCommand(cmd, _connSql, null, ctype, sql, param);
             var dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             cmd.Parameters.Clear();
@@ -356,7 +374,7 @@ namespace DBconn
                 return null;
             var clonedParms = new OracleParameter[cachedParms.Length];
             for (int i = 0, j = cachedParms.Length; i < j; i++)
-                clonedParms[i] = (OracleParameter)cachedParms[i].Clone();
+                clonedParms[i] = (OracleParameter)((ICloneable)cachedParms[i]).Clone();
             return clonedParms;
         }
 
