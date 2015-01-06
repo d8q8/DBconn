@@ -43,7 +43,7 @@ if (_db == null)
 using (_db)
 {
     const string sql = "select * from admin";
-    var dt = _db.MyDt(sql,CommandType.Text,1,20,"news");
+    var dt = _db.MyDt(sql);
     Console.Write("用户名:{0},密码:{1}", dt.Rows[0]["username"], dt.Rows[0]["password"]);
 }
 ```
