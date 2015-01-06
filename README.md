@@ -20,7 +20,7 @@ DBconn
 2>数据库配置
 <pre>
 	//调用代码配置在web.config里，数据库路径为：Access，Sqlite为相对路径，其他为全路径
-    \[appSettings\]
+    [appSettings]
         <add key="access" value="数据库" />
         <add key="sqlite" value="数据库" />
         <add key="sqlserver" value="server=(local);uid=用户名;pwd=密码;database=数据库" />
