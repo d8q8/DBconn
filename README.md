@@ -28,7 +28,7 @@ public enum MyType
         <add key="oracle" value="Provider=MSDAORA.1;Password=密码;User ID=用户名;Data Source=数据库" />
         <add key="mysql" value="server=localhost;user id=用户名;password=密码;database=数据库" />
     </appSettings>
-...
+```
 3>简单调用方式
 ```c#
 	Conn _db;
