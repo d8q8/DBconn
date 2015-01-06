@@ -53,6 +53,17 @@ DBconn
 	_db.MyExec(sql);//处理增删改操作,返回int类型
 	_db.MyTotal(sql);//处理计算查询结果操作,返回object类型,可自行转化成总数
 	_db.MyExist(sql);//判断数据是否存在,返回bool类型
-	_db.GetCache("Key");//获取缓存
-	_db.SetCache("Key","Value");//设置缓存
+	_db.GetCache(键);//获取缓存
+	_db.SetCache(键,值);//设置缓存
+	_db.MyParam(参数名称,参数赋值);//设置参数,赋值为字符串
+	_db.AddParam(参数名称,参数赋值);//同上,只是赋值为对象
 </pre>
+5>重载调用方式
+<pre>
+	//跟上面类似调用方式,只是参数多些,如下
+	//MyDt(string sql, CommandType ctype, int startindex, int pagesize, string dataname, params IDataParameter[] param)
+	_db.MyDt(sql, 命令类型, 开始页数索引, 每页多少个, 数据集别名, 变参);
+	//其他的方法基本都有重载,请自己查看源码吧.
+</pre>
+
+祝各位好运,使用简单方便,学习NET立刻简单了,不是一点点,加油,童鞋们,都能成为NET开发者.

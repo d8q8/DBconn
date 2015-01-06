@@ -678,7 +678,9 @@ namespace DBconn
         {
             IsSql().CacheParameters(cacheKey, commandParameters);
         }
+        #endregion
 
+        #region 引用参数(键值关系)
         /// <summary>
         /// 创建传参转化
         /// </summary>
@@ -689,10 +691,12 @@ namespace DBconn
         {
             return IsSql().MyParams(name, value);
         }
-
-        #endregion
-
-        #region 引用参数(键值关系)
+        /// <summary>
+        /// 设置参数,对象值
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public IDataParameter AddParam(string name, object value)
         {
             return IsSql().MyParams(name, value);
