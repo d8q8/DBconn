@@ -21,12 +21,13 @@ DBconn
 <pre>
 	//调用代码配置在web.config里，数据库路径为：Access，Sqlite为相对路径，其他为全路径
     [appSettings]
-        <add key="access" value="数据库" />
-        <add key="sqlite" value="数据库" />
-        <add key="sqlserver" value="server=(local);uid=用户名;pwd=密码;database=数据库" />
-        <add key="oracle" value="Provider=MSDAORA.1;Password=密码;User ID=用户名;Data Source=数据库" />
-        <add key="mysql" value="server=localhost;user id=用户名;password=密码;database=数据库" />
-    </appSettings>
+        [add key="access" value="数据库" /]
+        [add key="sqlite" value="数据库" /]
+        [add key="sqlserver" value="server=(local);uid=用户名;pwd=密码;database=数据库" /]
+        [add key="oracle" value="Provider=MSDAORA.1;Password=密码;User ID=用户名;Data Source=数据库" /]
+        [add key="mysql" value="server=localhost;user id=用户名;password=密码;database=数据库" /]
+    [/appSettings]
+    以上的中括号,自行换成尖括号,因为github不支持尖括号
 </pre>
 3>简单调用方式
 <pre>
