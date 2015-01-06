@@ -10,7 +10,7 @@ DBconn
 1>使用方法
 <pre>
 	枚举数据库类型
-	```csharp
+	```java
 	public enum MyType
     {
         Access2003, Access2007, Access2013, Mssql, Mysql, Oracle, Sqlite
