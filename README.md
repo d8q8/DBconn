@@ -9,14 +9,14 @@ DBconn
 
 1>使用方法
 
-	枚举数据库类型
-	```c#
-	public enum MyType
-    {
-        Access2003, Access2007, Access2013, Mssql, Mysql, Oracle, Sqlite
-    }
-    使用很简单,如
-    MyType.Access2003
+枚举数据库类型
+```c#
+public enum MyType
+{
+    Access2003, Access2007, Access2013, Mssql, Mysql, Oracle, Sqlite
+}
+使用很简单,如
+MyType.Access2003
 
 2>数据库配置
 <pre>
