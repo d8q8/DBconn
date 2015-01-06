@@ -15,6 +15,7 @@ public enum MyType
 {
     Access2003, Access2007, Access2013, Mssql, Mysql, Oracle, Sqlite
 }
+
 使用很简单,如
 MyType.Access2003
 
