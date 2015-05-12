@@ -16,7 +16,7 @@ namespace DBconn
     /// <summary>
     /// 调用数据库，默认为access数据库
     /// </summary>
-    public sealed class Db
+    public static class Db
     {
         #region 判断当前使用数据库及类型，默认为ACCESS2003
 
@@ -1071,35 +1071,17 @@ namespace DBconn
             return tempstr;
         }
 
-        public static string Null
-        {
-            get { return ""; }
-        }
+        private static string Null => "";
 
-        public static string IntNull
-        {
-            get { return "0"; }
-        }
+        private static string IntNull => "0";
 
-        public static string BoolNull
-        {
-            get { return "false"; }
-        }
+        public static string BoolNull => "false";
 
-        public static string DateTimeShortNull
-        {
-            get { return "0001-1-1 0:00:00"; }
-        }
+        public static string DateTimeShortNull => "0001-1-1 0:00:00";
 
-        public static string DateTimeWin7ShortNull
-        {
-            get { return "0001/1/1 0:00:00"; }
-        }
+        public static string DateTimeWin7ShortNull => "0001/1/1 0:00:00";
 
-        public static string DateTimeWin7LongNull
-        {
-            get { return "0001/01/01 00:00:00"; }
-        }
+        public static string DateTimeWin7LongNull => "0001/01/01 00:00:00";
 
         public static string DateTimeLongNull
         {
