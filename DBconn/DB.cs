@@ -92,6 +92,47 @@ namespace DBconn
 
         #region 转化实体类对象
         /// <summary>
+        /// 记录集转实体类
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dr"></param>
+        /// <returns></returns>
+        public static T ReaderToModel<T>(IDataReader dr)
+        {
+            try
+            {
+                using (dr)
+                {
+                    if (dr.Read())
+                    {
+                        List<string> list = new List<string>(dr.FieldCount);
+                        for (int i = 0; i < dr.FieldCount; i++)
+                        {
+                            list.Add(dr.GetName(i).ToLower());
+                        }
+                        T model = Activator.CreateInstance<T>();
+                        foreach (PropertyInfo pi in model.GetType().GetProperties(BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance))
+                        {
+                            if (list.Contains(pi.Name.ToLower()))
+                            {
+                                if (!IsNullOrDBNull(dr[pi.Name]))
+                                {
+                                    pi.SetValue(model, HackType(dr[pi.Name], pi.PropertyType), null);
+                                }
+                            }
+                        }
+                        return model;
+                    }
+                }
+                return default(T);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Reader转Object，从数据库字段转化为实体类对象
         /// </summary>
         /// <param name="reader">数据库记录集</param>
@@ -243,6 +284,17 @@ namespace DBconn
             return result;
         }
 
+        /// <summary>
+        /// 重载DataSet转换为泛型集合
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="pDataSet"></param>
+        /// <returns></returns>
+        public static IList<T> DataSetToIList<T>(DataSet pDataSet)
+        {
+            return DataSetToIList<T>(pDataSet,0);
+        }
+
         /// <summary>    
         /// DataSet转换为泛型集合    
         /// </summary>    
@@ -312,51 +364,53 @@ namespace DBconn
         /// DataReader转换为obj list   
         /// </summary>   
         /// <typeparam name="T">泛型</typeparam>   
-        /// <param name="rdr">数据记录集</param>   
+        /// <param name="reader">数据记录集</param>   
         /// <returns>返回泛型类型</returns>   
-        public static IList<T> DataReaderToList<T>(IDataReader rdr)
+        public static IList<T> DataReaderToList<T>(IDataReader dr)
         {
-            IList<T> list = new List<T>();
-            using (rdr)
+            using (dr)
             {
-                while (rdr.Read())
+                List<string> field = new List<string>(dr.FieldCount);
+                for (int i = 0; i < dr.FieldCount; i++)
                 {
-                    var t = (T)DataReaderToObj<T>(rdr);
-                    if (!Equals(t,null))
+                    field.Add(dr.GetName(i).ToLower());
+                }
+                List<T> list = new List<T>();
+                while (dr.Read())
+                {
+                    T model = Activator.CreateInstance<T>();
+                    foreach (PropertyInfo property in model.GetType().GetProperties(BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance))
                     {
-                        list.Add(t);
+                        if (field.Contains(property.Name.ToLower()))
+                        {
+                            if (!IsNullOrDBNull(dr[property.Name]))
+                            {
+                                property.SetValue(model, HackType(dr[property.Name], property.PropertyType), null);
+                            }
+                        }
                     }
+                    list.Add(model);
                 }
                 return list;
             }
-
         }
 
-        /// <summary>   
-        /// DataReader转换为Obj
-        /// </summary>   
-        /// <typeparam name="T">泛型</typeparam>   
-        /// <param name="rdr">datareader</param>   
-        /// <returns>返回泛型类型</returns>   
-        public static object DataReaderToObj<T>(IDataReader rdr)
+        private static object HackType(object value, Type conversionType)
         {
-            var t = Activator.CreateInstance<T>();
-            var obj = t.GetType();
-            using (rdr)
+            if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
             {
-                if (rdr.Read())
-                {
-                    for (var i = 0; i < rdr.FieldCount; i++)
-                    {
-                        if (rdr.IsDBNull(i)) continue;
-                        var tempValue = rdr.GetValue(i);
-                        obj.GetProperty(rdr.GetName(i)).SetValue(t, tempValue, null);
-                    }
-                    return t;
-                }
-                else
+                if (value == null)
                     return null;
+
+                System.ComponentModel.NullableConverter nullableConverter = new System.ComponentModel.NullableConverter(conversionType);
+                conversionType = nullableConverter.UnderlyingType;
             }
+            return Convert.ChangeType(value, conversionType);
+        }
+
+        private static bool IsNullOrDBNull(object obj)
+        {
+            return ((obj is DBNull) || string.IsNullOrEmpty(obj.ToString())) ? true : false;
         }
 
         #endregion

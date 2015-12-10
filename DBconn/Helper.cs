@@ -18,31 +18,31 @@ namespace DBconn
         /// <summary>
         /// 数据库连接
         /// </summary>
-        public SqlConnection Connection = null;
-        public Helper()
+        private SqlConnection _connection;
+        public Helper(string connStr = "DB")
         {
             if (_connStr == null)
             {
-                _connStr = ConfigurationManager.ConnectionStrings["DB"].ToString();
+                _connStr = ConfigurationManager.ConnectionStrings[connStr].ConnectionString;
             }
             OpenConnect();
         }
         /// <summary>
         /// 打开数据库连接
         /// </summary>
-        public void OpenConnect()
+        private void OpenConnect()
         {
-            if (Connection != null && Connection.State == ConnectionState.Open) return;
-            Connection = new SqlConnection(_connStr);
-            Connection.Open();
+            if (_connection != null && _connection.State == ConnectionState.Open) return;
+            _connection = new SqlConnection(_connStr);
+            _connection.Open();
         }
         /// <summary>
         /// 关闭数据库连接
         /// </summary>
         public void CloseConnect()
         {
-            if (Connection == null || Connection.State == ConnectionState.Closed) return;
-            Connection.Close();
+            if (_connection == null || _connection.State == ConnectionState.Closed) return;
+            _connection.Close();
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace DBconn
         /// <returns></returns>
         public SqlDataReader ExecReader(string strSql, object obQuery)
         {
-            var command = new SqlCommand(strSql, Connection);
+            var command = new SqlCommand(strSql, _connection);
             if (obQuery != null)
             {
                 var pis = obQuery.GetType().GetProperties();
@@ -74,7 +74,7 @@ namespace DBconn
         /// <returns></returns>
         public object ExecSingleValue(string strSql, object obQuery)
         {
-            var command = new SqlCommand(strSql, Connection);
+            var command = new SqlCommand(strSql, _connection);
             if (obQuery == null) return command.ExecuteScalar();
             var pis = obQuery.GetType().GetProperties();
             foreach (var p in pis)
@@ -92,7 +92,7 @@ namespace DBconn
         /// <returns></returns>
         public int ExecNoQuery(string strSql, object obQuery)
         {
-            var command = new SqlCommand(strSql, Connection);
+            var command = new SqlCommand(strSql, _connection);
             if (obQuery == null) return command.ExecuteNonQuery();
             var pis = obQuery.GetType().GetProperties();
             foreach (var p in pis)
@@ -108,7 +108,7 @@ namespace DBconn
         /// <param name="strSql">SQL语句</param>
         /// <param name="obQuery">SQL参数的值</param>
         /// <returns></returns>
-        public List<T> GetList(string strSql, object obQuery)
+        public IList<T> GetList(string strSql, object obQuery)
         {
             //调用执行查询语句函数，返回SqlDataReader
             var reader = ExecReader(strSql, obQuery);
@@ -199,6 +199,7 @@ namespace DBconn
             return model;
         }
     }
+
     public class PagedList<T> : List<T>
     {
         /// <summary>
