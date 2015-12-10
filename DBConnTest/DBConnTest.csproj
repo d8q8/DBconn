@@ -76,7 +76,6 @@
     <Content Include="database\data.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DBconn\DBconn.csproj">
