@@ -50,10 +50,13 @@ using (_db)
 4>其他调用方式
 ```c#
 //其他调用方式也比较简单,如下
+_db.MyDsList<T>(sql);//返回记录集List列表
 _db.MyDs(sql);//返回DataSet数据集
 _db.MyDt(sql);//返回DataTable数据表
 _db.MyDv(sql);//返回DataView数据视图
+_db.MyReadList<T>(sql);//返回DataReader数据列表
 _db.MyRead(sql);//返回DataReader数据视图
+_db.MyModel(sql);//返回数据模型
 _db.MyExec(sql);//处理增删改操作,返回int类型
 _db.MyTotal(sql);//处理计算查询结果操作,返回object类型,可自行转化成总数
 _db.MyExist(sql);//判断数据是否存在,返回bool类型
