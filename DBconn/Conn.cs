@@ -63,7 +63,7 @@ namespace DBconn
         //    <add name="sqlserver" connectionString="data source=.;initial catalog=数据库;user id=用户名;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" />
         //</connectionStrings>
         private readonly string _dal;
-        private readonly MyType _mytype;
+        private readonly MyType _mytype; 
 
         public Conn(MyType mt = MyType.Access2003, string connstr = "access")
         {
