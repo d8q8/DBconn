@@ -38,9 +38,15 @@ namespace DBconn
         {
             var connstr = _dataSql;
             _connSql = new SqlConnection(connstr);
-            if (_connSql.State == ConnectionState.Closed)
+            if (_connSql.State == ConnectionState.Open) return;
+            try
             {
                 _connSql.Open();
+            }
+            catch (Exception)
+            {
+                _connSql.Dispose();
+                throw new Exception("打开数据库失败！");
             }
         }
         /// <summary>
@@ -48,9 +54,19 @@ namespace DBconn
         /// </summary>
         public void Close()
         {
-            _connSql.Close();
-            _connSql.Dispose();
-            _connSql = null;
+            if (_connSql?.State != ConnectionState.Open) return;
+            try
+            {
+                _connSql.Close();
+                _connSql.Dispose();
+                _connSql = null;
+            }
+            catch (Exception)
+            {
+                _connSql?.Dispose();
+                _connSql = null;
+                throw new Exception("关闭数据库失败！");
+            }
         }
         /// <summary>
         /// 析构函数
@@ -79,17 +95,7 @@ namespace DBconn
                 // and unmanaged resources.
                 if (disposing)
                 {
-                    if (_connSql != null && _connSql.State == ConnectionState.Open)
-                    {
-                        try
-                        {
-                            Close();
-                        }
-                        catch
-                        {
-                            //throw new Exception(e.Message);
-                        }
-                    }
+                    Close();
                 }
             }
             _disposed = true;
@@ -352,7 +358,7 @@ namespace DBconn
             var cachedParms = (SqlParameter[])_parmCache[cacheKey];
             if (cachedParms == null)
                 return null;
-            var clonedParms = new SqlParameter[cachedParms.Length];
+            IDataParameter[] clonedParms = {};
             for (int i = 0, j = cachedParms.Length; i < j; i++)
                 clonedParms[i] = (SqlParameter)((ICloneable)cachedParms[i]).Clone();
             return clonedParms;
