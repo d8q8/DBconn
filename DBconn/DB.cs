@@ -1125,9 +1125,9 @@ namespace DBconn
             return tempstr;
         }
 
-        private static string Null => "";
+        public static string Null => "";
 
-        private static string IntNull => "0";
+        public static string IntNull => "0";
 
         public static string BoolNull => "false";
 
