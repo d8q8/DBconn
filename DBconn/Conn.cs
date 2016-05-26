@@ -73,27 +73,22 @@ namespace DBconn
             var connStr = ConfigurationManager.ConnectionStrings[connstr].ConnectionString;
             //本地连接串处理
             string filepath;
-            if (Application.StartupPath == Environment.CurrentDirectory)
-            {
-                filepath = Application.StartupPath + "\\" + connStr;
-            }
-            else
-            {
-                filepath = HttpContext.Current.Server.MapPath(connStr);
-            }
-
             switch (mt)
             {
                 case MyType.Access2003:
+                    filepath = (Application.StartupPath == Environment.CurrentDirectory) ? Application.StartupPath + "\\" + connStr :HttpContext.Current.Server.MapPath(connStr);
                     _dal = string.Format(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};", filepath);
                     break;
                 case MyType.Access2007:
+                    filepath = (Application.StartupPath == Environment.CurrentDirectory) ? Application.StartupPath + "\\" + connStr : HttpContext.Current.Server.MapPath(connStr);
                     _dal = string.Format(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Persist Security Info=False", filepath);
                     break;
                 case MyType.Access2013:
+                    filepath = (Application.StartupPath == Environment.CurrentDirectory) ? Application.StartupPath + "\\" + connStr : HttpContext.Current.Server.MapPath(connStr);
                     _dal = string.Format(@"Provider=Microsoft.ACE.OLEDB.15.0;Data Source={0};Persist Security Info=False", filepath);
                     break;
                 case MyType.Sqlite:
+                    filepath = (Application.StartupPath == Environment.CurrentDirectory) ? Application.StartupPath + "\\" + connStr : HttpContext.Current.Server.MapPath(connStr);
                     _dal = string.Format(@"Data Source={0};Pooling=true;FailIfMissing=false;", filepath);
                     break;
                 default:
